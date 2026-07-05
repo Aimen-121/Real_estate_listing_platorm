@@ -52,7 +52,10 @@ class PropertyController extends Controller
         [$col, $dir] = $sortMap[$request->sort ?? 'newest'];
         $query->orderBy($col, $dir);
 
-        $properties  = $query->paginate(12)->withQueryString();
+        //$properties  = $query->paginate(12)->withQueryString();//
+        $properties = $query->with(['images', 'listings' => function ($q) {
+            $q->where('Status', 'Active');
+        }])->paginate(12)->withQueryString();
         $categories  = PropertyCategory::all();
 
         return view('properties.search', compact('properties', 'categories'));
@@ -141,10 +144,12 @@ class PropertyController extends Controller
         // Upload images
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $img) {
-                $path = $img->store('properties', 'public');
+                //$path = $img->store('properties', 'public');//
+                $filename = time() . '_' . $img->getClientOriginalName();
+                $img->move(public_path('images'), $filename);
                 PropertyImage::create([
                     'Property_ID' => $property->Property_ID,
-                    'Image_Path'  => $path,
+                    'Image_Path'  => $filename,
                     'Upload_Date' => now()->toDateString(),
                     'Caption'     => $property->Title,
                 ]);

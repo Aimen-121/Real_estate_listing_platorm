@@ -1,29 +1,78 @@
 <div class="col-sm-6 col-md-4 col-lg-3">
     <div class="card card-custom h-100 overflow-hidden">
+        
+       
         <!-- Image / placeholder -->
-        <div class="position-relative" style="height:180px;overflow:hidden;background:linear-gradient(135deg,#A6C3E4,#78A3D4);">
-            @if($listing->property->images->first())
-                <img src="{{ Storage::url($listing->property->images->first()->Image_Path) }}"
-                     class="w-100 h-100 object-fit-cover" alt="{{ $listing->property->Title }}">
+        <!--<div class="position-relative" style="height:180px;overflow:hidden;background:linear-gradient(135deg,#A6C3E4,#78A3D4);">-->
+            
+            <!--@if($listing->property->images->first())
+                <img src="{{ asset('images/' . $listing->property->images->first()->Image_Path) }}"
+                class="w-100 h-100 object-fit-cover"
+                alt="{{ $listing->property->Title }}">
+                <img src="{{ asset('images/image1.jpg') }}">
             @else
                 <div class="d-flex align-items-center justify-content-center h-100">
                     <i class="bi bi-house fs-1 text-white opacity-50"></i>
                 </div>
-            @endif
+            @endif-->
 
             <!-- Featured badge -->
-            @if($listing->Featured_Flag)
+            <!--@if($listing->Featured_Flag)
                 <span class="position-absolute top-0 start-0 m-2 badge bg-warning text-dark fw-bold rounded-pill">
                     <i class="bi bi-star-fill me-1"></i>Featured
                 </span>
-            @endif
+            @endif-->
 
             <!-- Listing type badge -->
-            <span class="position-absolute top-0 end-0 m-2 badge {{ $listing->Listing_Type == 'Sale' ? 'bg-primary-custom' : 'bg-success' }} rounded-pill fw-semibold">
+            <!--<span class="position-absolute top-0 end-0 m-2 badge {{ $listing->Listing_Type == 'Sale' ? 'bg-primary-custom' : 'bg-success' }} rounded-pill fw-semibold">
                 For {{ $listing->Listing_Type }}
             </span>
-        </div>
+        </div>-->
+        <div id="carousel-{{ $listing->Listing_ID }}" class="carousel slide" data-bs-ride="carousel">
+           
 
+            <div class="carousel-inner">
+               
+
+                
+
+                
+
+                @forelse($listing->property->images as $key => $img)
+                    <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
+                        <img src="{{ asset('images/' . $img->Image_Path) }}"
+                        class="d-block w-100"
+                        style="height:180px; object-fit:cover;"
+                        alt="">
+                        
+                    </div>
+                  
+                        
+                @empty
+                    <div class="carousel-item active">
+                        <div class="d-flex align-items-center justify-content-center"
+                            style="height:180px; background:#eee;">
+                            <i class="bi bi-house fs-1 text-muted"></i>
+                        </div>
+                    </div>
+                @endforelse
+
+            </div>
+    
+
+                @if($listing->property->images->count() > 1)
+                    <button class="carousel-control-prev" type="button"
+                        data-bs-target="#carousel-{{ $listing->Listing_ID }}" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                    </button>
+
+                    <button class="carousel-control-next" type="button"
+                        data-bs-target="#carousel-{{ $listing->Listing_ID }}" data-bs-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                    </button>
+                @endif
+
+            </div>
         <div class="p-3 d-flex flex-column flex-grow-1">
             <h6 class="fw-bold mb-1 text-truncate">{{ $listing->property->Title }}</h6>
             <p class="text-muted small mb-1">

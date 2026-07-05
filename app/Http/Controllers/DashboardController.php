@@ -74,7 +74,9 @@ class DashboardController extends Controller
             $properties = Property::where('Agent_ID', $agent_id)->get();
             $property_ids = $properties->pluck('Property_ID')->toArray();
             
-            $listings = Listing::whereIn('Property_ID', $property_ids)->get();
+            $listings = Listing::with('property.images')
+            ->whereIn('Property_ID', $property_ids)
+            ->get();
             $listing_ids = $listings->pluck('Listing_ID')->toArray();
 
             $data['agent'] = [

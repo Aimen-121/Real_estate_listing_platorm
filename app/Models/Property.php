@@ -55,8 +55,10 @@ class Property extends Model
 
     public function listings()
     {
-        return $this->hasMany(Listing::class, 'Property_ID', 'Property_ID');
+        return $this->hasmany(Listing::class, 'Property_ID', 'Property_ID');
     }
+    
+
 
     public function paymentSchemes()
     {

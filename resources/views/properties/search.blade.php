@@ -95,11 +95,20 @@
                             <div class="col-sm-6 col-md-4">
                                 <div class="card card-custom h-100 overflow-hidden">
                                     <div class="position-relative" style="height:175px;overflow:hidden;background:linear-gradient(135deg,#A6C3E4,#78A3D4);">
-                                        @if($mainImg)
+                                        <!--@if($mainImg)
                                             <img src="{{ Storage::url($mainImg->Image_Path) }}" class="w-100 h-100 object-fit-cover" alt="{{ $property->Title }}">
                                         @else
                                             <div class="d-flex align-items-center justify-content-center h-100">
                                                 <i class="bi bi-house fs-1 text-white opacity-50"></i>
+                                            </div>
+                                        @endif-->
+                                        @if($mainImg)
+                                            <img src="{{ asset('images/' . $mainImg->Image_Path) }}"
+                                            class="w-100 h-100 object-fit-cover"
+                                            alt="{{ $property->Title }}">
+                                        @else
+                                            <div class="d-flex align-items-center justify-content-center h-100">
+                                            <i class="bi bi-house fs-1 text-white opacity-50"></i>
                                             </div>
                                         @endif
                                         @if($listing)

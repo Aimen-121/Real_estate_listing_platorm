@@ -11,10 +11,12 @@ class DatabaseSeeder extends Seeder
     /**
      * Seed the application's database.
      */
+    
     public function run(): void
     {
         // Disable foreign key checks for seeding
-        DB::statement('PRAGMA foreign_keys = OFF;');
+        //DB::statement('PRAGMA foreign_keys = OFF;');
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
 
         // Clear existing data
         DB::table('review')->truncate();
@@ -397,6 +399,8 @@ class DatabaseSeeder extends Seeder
         ]);
 
         // Re-enable foreign key checks
-        DB::statement('PRAGMA foreign_keys = ON;');
+        //DB::statement('PRAGMA foreign_keys = ON;');
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+        
     }
 }
