@@ -1,15 +1,15 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\PropertyController;
-use App\Http\Controllers\ListingController;
-use App\Http\Controllers\FavoriteController;
-use App\Http\Controllers\InquiryController;
 use App\Http\Controllers\BookingController;
-use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\FavoriteController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\InquiryController;
+use App\Http\Controllers\ListingController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PropertyController;
+use App\Http\Controllers\ReviewController;
 use Illuminate\Support\Facades\Route;
 
 // ─── Public Home & Property Search ─────────────────────────────────────────
@@ -73,3 +73,4 @@ Route::middleware(['auth'])->group(function () {
 });
 
 require __DIR__.'/auth.php';
+require __DIR__.'/admin.php';

@@ -58,6 +58,19 @@
 
         <!-- ==================== ADMIN DASHBOARD ==================== -->
         @if($activeRole == 'Admin' && $user->isAdmin())
+            <div class="card card-custom p-4 mb-4 text-center border-0 shadow-sm">
+                <div class="py-4">
+                    <i class="bi bi-shield-lock-fill text-primary-custom" style="font-size: 3rem;"></i>
+                    <h4 class="fw-bold mt-3">Welcome to the Administration Console</h4>
+                    <p class="text-muted mx-auto mb-4" style="max-width: 600px;">
+                        As an administrator, you have access to the system configuration, users, listings, payments, bookings, and categories. Click the button below to open the interactive Admin Panel.
+                    </p>
+                    <a href="{{ route('admin.dashboard') }}" class="btn btn-primary-custom px-5 py-2.5 fw-bold text-uppercase">
+                        <i class="bi bi-speedometer2 me-2"></i>Open Admin Panel
+                    </a>
+                </div>
+            </div>
+
             <div class="row g-4 mb-4">
                 <div class="col-sm-6 col-lg-3">
                     <div class="card card-custom stat-card h-100 p-3">

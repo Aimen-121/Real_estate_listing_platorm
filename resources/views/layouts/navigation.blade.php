@@ -15,6 +15,11 @@
                     <li class="nav-item">
                         <a class="nav-link fw-semibold {{ request()->routeIs('dashboard') ? 'active text-primary-custom' : '' }}" href="{{ route('dashboard') }}">Dashboard</a>
                     </li>
+                    @if(auth()->user()->isAdmin())
+                        <li class="nav-item">
+                            <a class="nav-link fw-semibold {{ request()->routeIs('admin.*') ? 'active text-primary-custom' : '' }}" href="{{ route('admin.dashboard') }}">Admin Panel</a>
+                        </li>
+                    @endif
                 @endauth
             </ul>
             <ul class="navbar-nav ms-auto align-items-center">

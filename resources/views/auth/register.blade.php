@@ -75,6 +75,10 @@
                     <input class="form-check-input" type="checkbox" name="roles[]" value="agent" id="role_agent" {{ is_array(old('roles')) && in_array('agent', old('roles')) ? 'checked' : '' }}>
                     <label class="form-check-label fw-semibold" for="role_agent">Agent</label>
                 </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="roles[]" value="admin" id="role_admin" {{ is_array(old('roles')) && in_array('admin', old('roles')) ? 'checked' : '' }}>
+                    <label class="form-check-label fw-semibold" for="role_admin">Admin</label>
+                </div>
             </div>
             @error('roles')
                 <div class="text-danger mt-1 small d-block">{{ $message }}</div>
