@@ -211,7 +211,7 @@ class PropertyController extends Controller
         $this->authorizePropertyOwner($property);
         // Delete associated images from storage
         foreach ($property->images as $img) {
-            Storage::disk('public')->delete($img->Image_Path);
+            unlink(public_path('images/' . $img->Image_Path));
         }
         $property->delete();
 
@@ -221,34 +221,46 @@ class PropertyController extends Controller
 
     /** Upload additional images to an existing property */
     public function uploadImages(Request $request, Property $property)
-    {
-        $this->authorizePropertyOwner($property);
-        $request->validate([
-            'images'   => 'required|array',
-            'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+{
+    $this->authorizePropertyOwner($property);
+
+    $request->validate([
+        'images'   => 'required|array',
+        'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+    ]);
+
+    foreach ($request->file('images') as $img) {
+
+        $filename = time() . '_' . $img->getClientOriginalName();
+
+        $img->move(public_path('images'), $filename);
+
+        PropertyImage::create([
+            'Property_ID' => $property->Property_ID,
+            'Image_Path'  => $filename,
+            'Upload_Date' => now()->toDateString(),
+            'Caption'     => $request->input('caption', $property->Title),
         ]);
-
-        foreach ($request->file('images') as $img) {
-            $path = $img->store('properties', 'public');
-            PropertyImage::create([
-                'Property_ID' => $property->Property_ID,
-                'Image_Path'  => $path,
-                'Upload_Date' => now()->toDateString(),
-                'Caption'     => $request->input('caption', $property->Title),
-            ]);
-        }
-
-        return back()->with('success', 'Images uploaded successfully.');
     }
+
+    return back()->with('success', 'Images uploaded successfully.');
+}
 
     /** Delete a single image */
     public function deleteImage(Property $property, PropertyImage $image)
     {
         $this->authorizePropertyOwner($property);
-        Storage::disk('public')->delete($image->Image_Path);
-        $image->delete();
-        return back()->with('success', 'Image deleted.');
+
+        $path = public_path('images/' . $image->Image_Path);
+
+        if (file_exists($path)) {
+            unlink($path);
     }
+
+    $image->delete();
+
+    return back()->with('success', 'Image deleted.');
+}
 
     // ── Helpers ──────────────────────────────────────────────────────────────
     private function authorizeOwner(): void

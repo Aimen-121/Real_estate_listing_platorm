@@ -115,38 +115,61 @@
             </div>
             @endif
 
-            <!-- Existing Images -->
-            @if($property->images->isNotEmpty())
-            <div class="card card-custom p-4 mb-4">
-                <h5 class="fw-bold mb-3"><i class="bi bi-images me-2 text-primary-custom"></i>Existing Images</h5>
-                <div class="row g-2">
-                    @foreach($property->images as $img)
-                        <div class="col-4 col-md-3 position-relative">
-                            <img src="{{ Storage::url($img->Image_Path) }}" class="w-100 rounded-3 object-fit-cover" style="height:90px;" alt="{{ $img->Caption }}">
-                            <form action="{{ route('properties.images.destroy', [$property->Property_ID, $img->Image_ID]) }}" method="POST">
-                                @csrf @method('DELETE')
-                                <button type="submit" class="btn btn-danger btn-sm position-absolute top-0 end-0 m-1 rounded-circle p-0" style="width:22px;height:22px;line-height:1;"
-                                    onclick="return confirm('Delete this image?')">×</button>
-                            </form>
-                        </div>
-                    @endforeach
-                </div>
-            </div>
-            @endif
+            <!-- Close Update Form before Existing Images / uploading images -->
+<button type="submit" class="btn btn-primary-custom px-5 py-2 mb-4">
+    <i class="bi bi-check-circle me-2"></i>Save Changes
+</button>
 
-            <!-- Upload New Images -->
-            <div class="card card-custom p-4 mb-4">
-                <h5 class="fw-bold mb-3"><i class="bi bi-cloud-upload me-2 text-primary-custom"></i>Add More Images</h5>
-                <form action="{{ route('properties.images.upload', $property->Property_ID) }}" method="POST" enctype="multipart/form-data">
-                    @csrf
-                    <input type="file" name="images[]" class="form-control mb-3" multiple accept="image/*">
-                    <button type="submit" class="btn btn-outline-primary-custom btn-sm">Upload Images</button>
+</form>
+
+<!-- Existing Images (kept OUTSIDE the edit form above — a <form> cannot be nested inside another <form>,
+     which is what was previously breaking the Upload Images form below) -->
+@if($property->images->isNotEmpty())
+<div class="card card-custom p-4 mb-4">
+    <h5 class="fw-bold mb-3"><i class="bi bi-images me-2 text-primary-custom"></i>Existing Images</h5>
+    <div class="row g-2">
+        @foreach($property->images as $img)
+            <div class="col-4 col-md-3 position-relative">
+                <img src="{{ asset('images/'.$img->Image_Path) }}" class="w-100 rounded-3 object-fit-cover" style="height:90px;" alt="{{ $img->Caption }}">
+                <form action="{{ route('properties.images.destroy', [$property->Property_ID, $img->Image_ID]) }}" method="POST">
+                    @csrf @method('DELETE')
+                    <button type="submit" class="btn btn-danger btn-sm position-absolute top-0 end-0 m-1 rounded-circle p-0" style="width:22px;height:22px;line-height:1;"
+                        onclick="return confirm('Delete this image?')">×</button>
                 </form>
             </div>
+        @endforeach
+    </div>
+</div>
+@endif
 
-            <button type="submit" class="btn btn-primary-custom px-5 py-2">
-                <i class="bi bi-check-circle me-2"></i>Save Changes
-            </button>
-        </form>
+<!-- Upload New Images -->
+<div class="card card-custom p-4 mb-4">
+
+    <h5 class="fw-bold mb-3">
+        <i class="bi bi-cloud-upload me-2 text-primary-custom"></i>
+        Add More Images
+    </h5>
+
+    <form action="{{ route('properties.images.upload', $property->Property_ID) }}"
+          method="POST"
+          enctype="multipart/form-data">
+
+        @csrf
+
+        <input type="file"
+               name="images[]"
+               class="form-control mb-3"
+               multiple
+               accept="image/*">
+
+        <button type="submit" class="btn btn-outline-primary-custom btn-sm">
+            Upload Images
+        </button>
+
+    </form>
+
+</div>
+
+            
     </div>
 </x-app-layout>

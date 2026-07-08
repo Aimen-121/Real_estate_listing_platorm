@@ -15,7 +15,6 @@ use Illuminate\Support\Facades\Route;
 // ─── Public Home & Property Search ─────────────────────────────────────────
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/properties/search', [PropertyController::class, 'search'])->name('properties.search');
-Route::get('/listings/{listing}', [ListingController::class, 'show'])->name('listings.show');
 
 // ─── Authenticated Routes ───────────────────────────────────────────────────
 Route::middleware(['auth'])->group(function () {
@@ -43,6 +42,13 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('listings', ListingController::class)->except(['show']);
     Route::post('/listings/{listing}/toggle', [ListingController::class, 'toggle'])
         ->name('listings.toggle');
+});
+
+// Public listing show route — must stay AFTER the listings resource route above,
+// otherwise it swallows '/listings/create' (matches "create" as the {listing} param) -> 404.
+Route::get('/listings/{listing}', [ListingController::class, 'show'])->name('listings.show');
+
+Route::middleware(['auth'])->group(function () {
 
     // ── Favorites ───────────────────────────────────────────────────────────
     Route::post('/favorites', [FavoriteController::class, 'store'])->name('favorites.store');

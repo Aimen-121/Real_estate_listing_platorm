@@ -51,8 +51,8 @@
                 </div>
                 <div class="col-lg-5 d-none d-lg-flex justify-content-center">
                     <div class="position-relative">
-                        <div class="rounded-4 overflow-hidden shadow-lg" style="width:380px;height:300px;background:linear-gradient(135deg,#78A3D4,#A6C3E4);display:flex;align-items:center;justify-content:center;">
-                            <i class="bi bi-buildings-fill text-white" style="font-size:8rem;opacity:0.5;"></i>
+                        <div class="rounded-4 overflow-hidden shadow-lg" style="width:380px;height:300px;">
+                            <img src="{{ asset('images/image7.jpeg') }}" alt="RealEstate" class="w-100 h-100" style="object-fit:cover;">
                         </div>
                         <!-- Stats badge -->
                         <div class="card card-custom p-3 shadow-lg position-absolute" style="bottom:-20px;left:-20px;min-width:150px;">
@@ -207,24 +207,24 @@
             <div class="row g-4">
                 <div class="col-md-4">
                     <h5 class="fw-bold mb-3 text-white"><i class="bi bi-houses-fill me-2 text-primary-custom"></i>RealEstate</h5>
-                    <p class="text-muted small mb-0">Pakistan's premier real estate platform connecting buyers, sellers, renters and agents since 2025.</p>
+                    <p class="small mb-0" style="color:#cbd5e1;">Pakistan's premier real estate platform connecting buyers, sellers, renters and agents since 2025.</p>
                 </div>
                 <div class="col-md-4">
                     <h6 class="fw-bold text-white mb-3">Quick Links</h6>
                     <ul class="list-unstyled mb-0">
-                        <li class="mb-1"><a href="/" class="text-muted text-decoration-none small">Home</a></li>
-                        <li class="mb-1"><a href="{{ route('properties.search') }}" class="text-muted text-decoration-none small">Browse Properties</a></li>
+                        <li class="mb-1"><a href="/" class="text-decoration-none small" style="color:#cbd5e1;">Home</a></li>
+                        <li class="mb-1"><a href="{{ route('properties.search') }}" class="text-decoration-none small" style="color:#cbd5e1;">Browse Properties</a></li>
                         @auth
-                        <li class="mb-1"><a href="{{ route('dashboard') }}" class="text-muted text-decoration-none small">Dashboard</a></li>
+                        <li class="mb-1"><a href="{{ route('dashboard') }}" class="text-decoration-none small" style="color:#cbd5e1;">Dashboard</a></li>
                         @else
-                        <li class="mb-1"><a href="{{ route('register') }}" class="text-muted text-decoration-none small">Register</a></li>
-                        <li class="mb-1"><a href="{{ route('login') }}" class="text-muted text-decoration-none small">Login</a></li>
+                        <li class="mb-1"><a href="{{ route('register') }}" class="text-decoration-none small" style="color:#cbd5e1;">Register</a></li>
+                        <li class="mb-1"><a href="{{ route('login') }}" class="text-decoration-none small" style="color:#cbd5e1;">Login</a></li>
                         @endauth
                     </ul>
                 </div>
                 <div class="col-md-4">
                     <h6 class="fw-bold text-white mb-3">Contact</h6>
-                    <ul class="list-unstyled mb-0 small text-muted">
+                    <ul class="list-unstyled mb-0 small" style="color:#cbd5e1;">
                         <li class="mb-1"><i class="bi bi-envelope me-2 text-primary-custom"></i>info@realestate.pk</li>
                         <li class="mb-1"><i class="bi bi-telephone me-2 text-primary-custom"></i>+92 300 1234567</li>
                         <li class="mb-1"><i class="bi bi-geo-alt me-2 text-primary-custom"></i>Lahore, Punjab, Pakistan</li>
@@ -232,7 +232,7 @@
                 </div>
             </div>
             <hr class="my-4 border-secondary">
-            <div class="text-center text-muted small">
+            <div class="text-center small" style="color:#cbd5e1;">
                 &copy; {{ date('Y') }} RealEstate Listing Platform. All rights reserved.
             </div>
         </div>
