@@ -11,6 +11,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\ReviewController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 
 // ─── Public Home & Property Search ─────────────────────────────────────────
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -70,6 +71,16 @@ Route::middleware(['auth'])->group(function () {
     // ── Payments ────────────────────────────────────────────────────────────
     Route::get('/payments', [PaymentController::class, 'index'])->name('payments.index');
     Route::post('/payments', [PaymentController::class, 'store'])->name('payments.store');
+});
+
+Route::get('/debug', function (Request $request) {
+    return response()->json([
+        'APP_URL' => config('app.url'),
+        'url()' => url('/'),
+        'secure' => $request->isSecure(),
+        'scheme' => $request->getScheme(),
+        'asset' => asset('test.css'),
+    ]);
 });
 
 require __DIR__.'/auth.php';
